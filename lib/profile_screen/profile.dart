@@ -110,7 +110,7 @@ Future<void> _uploadImage() async {
         return AlertDialog(
           title: Text('About the App'),
           content: Text(
-              'This app was developed by a dedicated team to help users to detect their eyes from cataract, \nNOTE: This is not a replacement of the doctor\'s machine, it\'s just an art of Artificial Intelligence which tells you the chance of being cataract positive.'),
+              'This app was developed by a dedicated team to help users to detect their eyes from cataract, and enable them to contact the Ophthalmologists \nNOTE: This is not a replacement of the doctor\'s machine, it\'s just an art of Artificial Intelligence which tells you the chance of being cataract positive.'),
           actions: [
             TextButton(
               onPressed: () {
@@ -151,13 +151,23 @@ Future<void> _uploadImage() async {
                     children: [
                       Stack(
                         children: [
-                          CircleAvatar(
-                            radius: 80,
-                            backgroundImage: userData!['UserProfilePicture'] != null
-                                ? NetworkImage(userData!['UserProfilePicture'])
-                                : AssetImage('images/placeholder.png')
-                                    as ImageProvider,
-                          ),
+                          Stack(
+  children: [
+    CircleAvatar(
+      radius: 80,
+      backgroundImage: userData!['UserProfilePicture'] != null
+          ? NetworkImage(userData!['UserProfilePicture'])
+          : AssetImage('images/placeholder.png')
+              as ImageProvider,
+    ),
+    if (userData!['UserProfilePicture'] == null)
+      Positioned.fill(
+        child: Center(
+          child: CircularProgressIndicator(),
+        ),
+      ),
+  ],
+),
                           Positioned(
                             bottom: 0,
                             right: 0,
@@ -195,10 +205,10 @@ Future<void> _uploadImage() async {
               );
                           },
                           style: ElevatedButton.styleFrom(
-                        backgroundColor: Color(0xFF273671),
-                        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                        backgroundColor: Colors.blue.shade700,
+                        padding: EdgeInsets.symmetric(horizontal: 0, vertical: 10),
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30),
+                          borderRadius: BorderRadius.circular(15),
                         ),
                       ),
                           child: Text('View Result History', style: TextStyle(fontSize: getScaledWidth(20, context), color: Colors.white, fontWeight: FontWeight.bold), ),
@@ -209,7 +219,7 @@ Future<void> _uploadImage() async {
                         onPressed: _logout,
                         child: Text('Logout'),
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.blue,
+                          backgroundColor: Colors.blue.shade100,
                         ),
                       ),
                       

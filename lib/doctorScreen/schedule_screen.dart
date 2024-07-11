@@ -29,6 +29,7 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
             height: 5, fontSize: getScaledWidth(25.0, context), fontWeight: FontWeight.bold,
           ),
         ),
+        // backgroundColor: Colors.white,
       ),
       // child: SingleChildScrollView(
         body:  Padding(
@@ -36,17 +37,17 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 15),
-                child: Text(
-                  "Appointments",
-                  style: TextStyle(
-                    fontSize: getScaledWidth(25, context),
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-              ),  
-              SizedBox(height: getScaledHeight(20, context)),
+              // Padding(
+              //   padding: EdgeInsets.symmetric(horizontal: 15),
+              //   child: Text(
+              //     "Appointments",
+              //     style: TextStyle(
+              //       fontSize: getScaledWidth(25, context),
+              //       fontWeight: FontWeight.w500,
+              //     ),
+              //   ),
+              // ),  
+              // SizedBox(height: getScaledHeight(20, context)),
               Container(
                 padding: EdgeInsets.all(5),
                 margin: EdgeInsets.symmetric(horizontal: getScaledWidth(20, context)),

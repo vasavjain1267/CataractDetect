@@ -1,3 +1,4 @@
+
 import 'package:cataract_detector1/media_query.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -8,7 +9,7 @@ class UpcomingAppointment extends StatelessWidget {
   const UpcomingAppointment({super.key});
 
   @override
-   Widget build(BuildContext context) {
+  Widget build(BuildContext context) {
     final user = FirebaseAuth.instance.currentUser;
     final appointmentsRef = FirebaseFirestore.instance
         .collection('users')
@@ -29,7 +30,9 @@ class UpcomingAppointment extends StatelessWidget {
           ),
           SizedBox(height: getScaledHeight(15, context)),
           StreamBuilder<QuerySnapshot>(
-            stream: appointmentsRef.where('status', whereIn: ['Upcoming', 'Confirmed']).snapshots(),
+            stream: appointmentsRef
+                .where('status', whereIn: ['Upcoming', 'Confirmed'])
+                .snapshots(),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return Center(child: CircularProgressIndicator());
@@ -50,8 +53,17 @@ class UpcomingAppointment extends StatelessWidget {
                   final appointmentTime = appointment['time'];
                   final status = appointment['status'];
                   final doctorImage = appointment['docProfilePic'];
-                  DateFormat('d/MMMM/y hh:mm a')
+
+                  // Combine the appointment date and time
+                  final appointmentDateTime = DateFormat('d/MMMM/y hh:mm a')
                       .parse('${DateFormat('d/MMMM/y').format(appointmentDate)} $appointmentTime');
+
+                  // Check if the appointment date and time have passed
+                  final now = DateTime.now();
+                  if (now.isAfter(appointmentDateTime) && status != 'Scheduled') {
+                    // Update the status to "Scheduled"
+                    appointmentsRef.doc(appointment.id).update({'status': 'Scheduled'});
+                  }
 
                   return AppointmentTile(
                     appointmentId: appointment.id,

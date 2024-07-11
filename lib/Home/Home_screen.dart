@@ -349,18 +349,18 @@
 //     );
 //   }
 // }
+import 'package:cataract_detector1/Camera/camera.dart';
 import 'package:cataract_detector1/Home/controller/home_controller1.dart';
 import 'package:cataract_detector1/doctorScreen/all_doctor_screen.dart';
+import 'package:cataract_detector1/doctorScreen/appointment_screen.dart';
 import 'package:cataract_detector1/doctorScreen/doctor_screen.dart';
+import 'package:cataract_detector1/doctorScreen/schedule_screen.dart';
 import 'package:cataract_detector1/media_query.dart';
+import 'package:cataract_detector1/navbar.dart';
 import 'package:intl/intl.dart';
-import 'package:cataract_detector1/Home/controller/home_screen_controller.dart';
+// import 'package:cataract_detector1/Home/controller/home_screen_controller.dart';
 import 'package:cataract_detector1/src/consts/consts.dart';
 import 'package:cataract_detector1/profile_screen/profile.dart';
-import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:get/get.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -368,11 +368,35 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+    final PageController _pageController = PageController();
+  final HomeController1 controller1 = Get.put(HomeController1());
+
+  // @override
+  // Widget build(BuildContext context) {
+  //   return Scaffold(
+  //     body: PageView(
+  //       controller: _pageController,
+  //       onPageChanged: (index) {
+  //         controller1.currentNavIndex.value = index;
+  //       },
+  //       children: [
+  //         HomeScreen(),
+  //         CameraScreen(),
+  //         ScheduleScreen(),
+  //         ProfileScreen(),
+  //       ],
+  //     ),
+  //     bottomNavigationBar: CustomNavBar(
+  //       pageController: _pageController,
+  //       controller1: controller1,
+  //     ),
+  //   );
+  // }
   List<Map<String, dynamic>> doctors = [];
   User? user = FirebaseAuth.instance.currentUser;
   Map<String, dynamic>? userData;
-  var controller = Get.put(HomeController());
-  final HomeController1 controller1 = Get.put(HomeController1());
+  // var controller = Get.put(HomeController());
+  // final HomeController1 controller1 = Get.put(HomeController1());
 
   fetchUserData() async {
     if (user != null) {
@@ -423,7 +447,23 @@ class _HomeScreenState extends State<HomeScreen> {
     List<DateTime> weekDays = List.generate(7, (index) => DateTime.now().add(Duration(days: index - DateTime.now().weekday + 1)));
 
     return Scaffold(
-      backgroundColor: Colors.white,
+      // body: PageView(
+      //   controller: _pageController,
+      //   onPageChanged: (index) {
+      //     controller1.currentNavIndex.value = index;
+      //   },
+      //   children: [
+      //     HomeScreen(),
+      //     CameraScreen(),
+      //     ScheduleScreen(),
+      //     ProfileScreen(),
+      //   ],
+      // ),
+      // bottomNavigationBar: CustomNavBar(
+      //   pageController: _pageController,
+      //   controller1: controller1,
+      // ),
+      // backgroundColor: Colors.white,
       body: userData == null
           ? Center(child: CircularProgressIndicator())
           : SafeArea(
@@ -611,7 +651,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     SizedBox(height: getScaledHeight(16.0, context)),
                     Text(
-                      'Confirmed Upcoming Appointments',
+                      'Confirmed Appointments',
                       style: TextStyle(color: Colors.black, fontSize: getScaledWidth(18.0, context), fontWeight: FontWeight.bold),
                     ),
                     SizedBox(height: getScaledHeight(8.0, context)),

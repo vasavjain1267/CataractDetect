@@ -133,7 +133,7 @@ class _CameraScreenState extends State<CameraScreen> {
     if (imageFile == null) {
       return CircleAvatar(
         radius: 75,
-        backgroundColor: Colors.white,
+        backgroundColor: Color.fromARGB(255, 211, 211, 211),
         child: Icon(
           Icons.image,
           size: 50,
@@ -219,7 +219,8 @@ class _CameraScreenState extends State<CameraScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text('Eye Scan'),
+        title: Text('Eye Scan', style: TextStyle(fontWeight: FontWeight.bold, height: 5, fontSize: getScaledWidth(25.0, context))
+        ),
         backgroundColor: Colors.white,
       ),
       body: isLoading
@@ -284,7 +285,7 @@ class _CameraScreenState extends State<CameraScreen> {
                       ),
                     ],
                   ),
-                  SizedBox(height: getScaledHeight(40.0, context)),
+                  SizedBox(height: getScaledHeight(90.0, context)),
                   ElevatedButton(
                     onPressed: isRightEyeScanned && isLeftEyeScanned
                         ? () async {

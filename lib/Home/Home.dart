@@ -14,19 +14,19 @@ import 'package:cataract_detector1/profile_screen/profile.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 // import 'package:cataract_detector1/total_appointment/view/total_appointment_view.dart';
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  runApp(MyApp());
-}
+// void main() async {
+//   WidgetsFlutterBinding.ensureInitialized();
+//   runApp(MyApp());
+// }
 
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return GetMaterialApp(
-      home: Home(),
-    );
-  }
-}
+// class MyApp extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return GetMaterialApp(
+//       home: Home(),
+//     );
+//   }
+// }
 
 class Home extends StatefulWidget {
   @override

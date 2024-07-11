@@ -357,8 +357,9 @@ List<Map<String, dynamic>> doctors = [];
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Result Screen'),
-        backgroundColor: Colors.teal,
+        
+        title: Text('Result Screen',style: TextStyle(fontWeight: FontWeight.bold, height: 5, fontSize: getScaledWidth(25.0, context))),
+        // backgroundColor: Colors.blue,
       ),
       body: isUploading
           ? Center(child: CircularProgressIndicator())
@@ -402,8 +403,8 @@ List<Map<String, dynamic>> doctors = [];
                       onPressed: _saveResult,
                       child: Text('Save Result'),
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.teal,
-                        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                        backgroundColor:Colors.blue.shade200,
+                        padding: EdgeInsets.symmetric(horizontal: 50, vertical: 15),
                         textStyle: TextStyle(fontSize: 16),
                       ),
                     ),
@@ -415,28 +416,29 @@ List<Map<String, dynamic>> doctors = [];
                           MaterialPageRoute(builder: (context) => HistoryScreen()),
                         );
                       },
-                      child: Text('Go to History'),
+                      child: Text('Browse History'),
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.teal,
-                        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                        backgroundColor: Colors.blue.shade200,
+                        padding: EdgeInsets.symmetric(horizontal: 50, vertical: 15),
                         textStyle: TextStyle(fontSize: 16),
                       ),
                     ),
-                    SizedBox(height: 10),
-                    ElevatedButton(
-                      onPressed: () {
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(builder: (context) => HomeScreen()),
-                        );
-                      },
-                      child: Text('Go to Home'),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.teal,
-                        padding: EdgeInsets.symmetric(horizontal: getScaledHeight(20, context), vertical: getScaledHeight(15, context)),
-                        textStyle: TextStyle(fontSize: getScaledWidth(16, context)),
-                      ),
-                    ),
+                    // SizedBox(height: 10),
+                    // ElevatedButton(
+                    //   onPressed: () {
+                    //     Navigator.pushReplacement(
+                    //       context,
+                    //       MaterialPageRoute(builder: (context) => HomeScreen()),
+                    //     );
+                    //   },
+                    //   child: Text('Go to Home'),
+                    //   style: ElevatedButton.styleFrom(
+                    //     backgroundColor: Colors.blue,
+                    //     padding: EdgeInsets.symmetric(horizontal: getScaledHeight(50, context), vertical: getScaledHeight(15, context)),
+                    //     textStyle: TextStyle(fontSize: getScaledWidth(16, context)),
+                    //   ),
+                    // ),
+                    
                     SizedBox(height: getScaledHeight(10, context)),
                     ElevatedButton(
                       onPressed: () {
@@ -446,14 +448,14 @@ List<Map<String, dynamic>> doctors = [];
                           (Route<dynamic> route) => false,
                         );
                       },
-                      child: Text('Leave'),
+                      child: Text('Test Again'),
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.teal,
-                        padding: EdgeInsets.symmetric(horizontal: getScaledHeight(20, context), vertical: getScaledWidth(15, context)),
+                        backgroundColor: Colors.blue.shade200,
+                        padding: EdgeInsets.symmetric(horizontal: getScaledHeight(50, context), vertical: getScaledWidth(15, context)),
                         textStyle: TextStyle(fontSize: getScaledWidth(16, context)),
                       ),
                     ),
-                    SizedBox(height: getScaledHeight(30, context)),
+                    SizedBox(height: getScaledHeight(10, context)),
                     ElevatedButton(
                       onPressed: () {
                         Navigator.pushReplacement(
@@ -461,16 +463,16 @@ List<Map<String, dynamic>> doctors = [];
                           MaterialPageRoute(builder: (context) => ViewAllDoctorsScreen(doctors: doctors,)),
                         );
                       },
-                      child: Text('Take Appointments'),
+                      child: Text('Take Doctor Appointments'),
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.teal,
-                        padding: EdgeInsets.symmetric(horizontal: getScaledHeight(20, context), vertical: getScaledHeight(15, context)),
+                        backgroundColor: Colors.blue.shade100,
+                        padding: EdgeInsets.symmetric(horizontal: getScaledHeight(30, context), vertical: getScaledHeight(15, context)),
                         textStyle: TextStyle(fontSize: getScaledWidth(16, context)),
                       ),
                     ),
                     Text(
-                      'Note: The model we are using has only 92% accuracy and cannot replace doctor\'s high-tech machines. For consulting, take doctor appointments and their guidance.',
-                      style: TextStyle(fontSize: 14, color: Colors.red),
+                      'Note: The model we are using has only 92% accuracy\n and cannot replace doctor\'s high-tech machines. \nFor consulting, take doctor appointments.',
+                      style: TextStyle(fontSize: 14, color: const Color.fromARGB(255, 255, 17, 0)),
                       textAlign: TextAlign.center,
                     ),
                   ],

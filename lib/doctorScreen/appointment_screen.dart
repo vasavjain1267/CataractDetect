@@ -1,8 +1,10 @@
 // import 'package:cataract_detector1/doctorScreen/doctor_fetch_files.dart';
 import 'package:cataract_detector1/Home/Home.dart';
+import 'package:cataract_detector1/doctorScreen/all_doctor_screen.dart';
 import 'package:cataract_detector1/doctorScreen/appointment_firebase.dart';
 // import 'package:cataract_detector1/doctorScreen/schedule_screen.dart';
 import 'package:cataract_detector1/media_query.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -19,6 +21,7 @@ class AppointmentScreen extends StatefulWidget {
 }
 
 class _AppointmentScreenState extends State<AppointmentScreen> {
+  List<Map<String, dynamic>> doctors = [];
   DateTime? _selectedDate;
   String? _selectedTime;
   CalendarFormat _calendarFormat = CalendarFormat.month;
@@ -27,6 +30,24 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
   DateTime _lastDay = DateTime(DateTime.now().year, DateTime.now().month + 1, 0);
   final user = FirebaseAuth.instance.currentUser;
   // Future<void> _selectDate(BuildContext context) async {
+    void fetchDoctorData() async {
+    try {
+      QuerySnapshot querySnapshot =
+          await FirebaseFirestore.instance.collection('doctors').get();
+
+      setState(() {
+        doctors = querySnapshot.docs.map((doc) => doc.data() as Map<String, dynamic>).toList();
+      });
+    } catch (e) {
+      print("Error fetching doctors: $e");
+    }
+  }
+  @override
+  void initState() {
+    super.initState();
+    // fetchUserData();
+    fetchDoctorData();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -366,11 +387,11 @@ Future<void> _showConfirmationDialog(BuildContext context) async {
               };
               await FirestoreService().bookAppointment(user!.uid, appointment); 
               Navigator.of(context).pop(); // Close the dialog
-               Navigator.pushReplacement(
+               Navigator.push(
                                             context,
                                             MaterialPageRoute(
                                                 builder: (context) =>
-                                                    Home()
+                                                    ViewAllDoctorsScreen(doctors: doctors,)
                                                     ));
             },
             child: Text("OK"),
