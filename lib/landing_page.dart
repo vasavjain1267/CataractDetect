@@ -14,7 +14,6 @@ class LandingPage extends StatefulWidget {
 class _LandingPageState extends State<LandingPage> {
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       body: 
         Container(

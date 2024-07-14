@@ -475,6 +475,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     Row(
                       children: [
                         Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
                               'Welcome back,',
@@ -507,8 +508,11 @@ class _HomeScreenState extends State<HomeScreen> {
                     SizedBox(height: getScaledHeight(16.0, context)),
                     ElevatedButton(
   onPressed: () {
-    // controller1.currentNavIndex.value = 1;
-    // _pageController.jumpToPage(1);
+      Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => CameraScreen()),
+                            );
+   
   },
   child: Text(
     'Click To GET YOUR EYES\n CHECKED',

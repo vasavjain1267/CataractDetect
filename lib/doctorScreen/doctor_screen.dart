@@ -10,13 +10,8 @@ class DoctorScreen extends StatelessWidget {
   DoctorScreen({required this.doctor});
 Future<void> _bookAppointment(DateTime selectedDate, String selectedTime) async {
     try {
-      // Firestore instance
       FirebaseFirestore firestore = FirebaseFirestore.instance;
-
-      // Format date
       String formattedDate = DateFormat('yyyy-MM-dd').format(selectedDate);
-
-      // Add appointment to doctor's collection
       await firestore.collection('doctors').doc(doctor['docId']).collection('appointments').add({
         'userName': 'User Name', // Replace with actual user name
         'appointmentDate': formattedDate,
@@ -29,7 +24,6 @@ Future<void> _bookAppointment(DateTime selectedDate, String selectedTime) async 
       // );
     } catch (e) {
       print('Error booking appointment: $e');
-      // Handle error
     }
   }
   @override

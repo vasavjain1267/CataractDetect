@@ -262,7 +262,7 @@ class _LogInState extends State<LogIn> {
                                             context,
                                             MaterialPageRoute(
                                                 builder: (context) =>
-                                                    ForgotPasswordPhone()));
+                                                    ForgotPhone()));
                                       },
                                       child: Container(
                                         padding: const EdgeInsets.all(

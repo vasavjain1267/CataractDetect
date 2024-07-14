@@ -26,28 +26,18 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
         title: Text(
           "Appointments",
           style: TextStyle(
-            height: 5, fontSize: getScaledWidth(25.0, context), fontWeight: FontWeight.bold,
+            height: 5,
+            fontSize: getScaledWidth(25.0, context),
+            fontWeight: FontWeight.bold,
           ),
         ),
-        // backgroundColor: Colors.white,
       ),
-      // child: SingleChildScrollView(
-        body:  Padding(
+      body: SingleChildScrollView(
+        child: Padding(
           padding: EdgeInsets.only(top: 30),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              // Padding(
-              //   padding: EdgeInsets.symmetric(horizontal: 15),
-              //   child: Text(
-              //     "Appointments",
-              //     style: TextStyle(
-              //       fontSize: getScaledWidth(25, context),
-              //       fontWeight: FontWeight.w500,
-              //     ),
-              //   ),
-              // ),  
-              // SizedBox(height: getScaledHeight(20, context)),
               Container(
                 padding: EdgeInsets.all(5),
                 margin: EdgeInsets.symmetric(horizontal: getScaledWidth(20, context)),
@@ -141,7 +131,7 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
             ],
           ),
         ),
-      // ),
+      ),
     );
   }
 }

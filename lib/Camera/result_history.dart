@@ -5,7 +5,14 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-class HistoryScreen extends StatelessWidget {
+class HistoryScreen extends StatefulWidget {
+  @override
+  _HistoryScreenState createState() => _HistoryScreenState();
+}
+
+class _HistoryScreenState extends State<HistoryScreen> {
+  bool _isLoading = false;
+
   Future<Map<String, List<Map<String, dynamic>>>> _fetchAndGroupResults() async {
     final user = FirebaseAuth.instance.currentUser;
     QuerySnapshot snapshot = await FirebaseFirestore.instance
@@ -79,8 +86,20 @@ class HistoryScreen extends StatelessWidget {
               ),
             );
             if (confirm == true) {
+              setState(() {
+                _isLoading = true;
+              });
+
               await _deleteResult(result);
-              (context as Element).markNeedsBuild(); // This updates the UI
+              
+              setState(() {
+                _isLoading = false;
+              });
+
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text('Result deleted')),
+              );
+              setState(() {});
             }
           },
         ),
@@ -98,48 +117,49 @@ class HistoryScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return WillPopScope(
       onWillPop: () async {
         Navigator.pop(context);
-        return false; // Prevent default back button action
+        return false;
       },
       child: Scaffold(
         appBar: AppBar(
           title: Text('Results History'),
         ),
-        body: FutureBuilder<Map<String, List<Map<String, dynamic>>>>(
-          future: _fetchAndGroupResults(),
-          builder: (context, snapshot) {
-            if (!snapshot.hasData) {
-              return Center(child: CircularProgressIndicator());
-            }
+        body: _isLoading
+            ? Center(child: CircularProgressIndicator())
+            : FutureBuilder<Map<String, List<Map<String, dynamic>>>>(
+                future: _fetchAndGroupResults(),
+                builder: (context, snapshot) {
+                  if (!snapshot.hasData) {
+                    return Center(child: CircularProgressIndicator());
+                  }
 
-            Map<String, List<Map<String, dynamic>>> groupedResults = snapshot.data!;
-            List<String> dates = groupedResults.keys.toList();
+                  Map<String, List<Map<String, dynamic>>> groupedResults = snapshot.data!;
+                  List<String> dates = groupedResults.keys.toList();
 
-            return ListView.builder(
-              itemCount: dates.length,
-              itemBuilder: (context, index) {
-                String date = dates[index];
-                List<Map<String, dynamic>> resultsForDate = groupedResults[date]!;
+                  return ListView.builder(
+                    itemCount: dates.length,
+                    itemBuilder: (context, index) {
+                      String date = dates[index];
+                      List<Map<String, dynamic>> resultsForDate = groupedResults[date]!;
 
-                return ExpansionTile(
-                  title: Text(
-                    'Date: $date',
-                    style: TextStyle(
-                      fontSize: getScaledWidth(20, context),
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  children: resultsForDate.map((result) {
-                    return _buildCard(context, result);
-                  }).toList(),
-                );
-              },
-            );
-          },
-        ),
+                      return ExpansionTile(
+                        title: Text(
+                          'Date: $date',
+                          style: TextStyle(
+                            fontSize: getScaledWidth(20, context),
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        children: resultsForDate.map((result) {
+                          return _buildCard(context, result);
+                        }).toList(),
+                      );
+                    },
+                  );
+                },
+              ),
       ),
     );
   }

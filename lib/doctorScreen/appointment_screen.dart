@@ -1,5 +1,7 @@
 // import 'package:cataract_detector1/doctorScreen/doctor_fetch_files.dart';
+// import 'package:cataract_detector1/Home/Home.dart';
 import 'package:cataract_detector1/Home/Home.dart';
+import 'package:cataract_detector1/Home/Home_screen.dart';
 import 'package:cataract_detector1/doctorScreen/all_doctor_screen.dart';
 import 'package:cataract_detector1/doctorScreen/appointment_firebase.dart';
 // import 'package:cataract_detector1/doctorScreen/schedule_screen.dart';
@@ -387,11 +389,11 @@ Future<void> _showConfirmationDialog(BuildContext context) async {
               };
               await FirestoreService().bookAppointment(user!.uid, appointment); 
               Navigator.of(context).pop(); // Close the dialog
-               Navigator.push(
+               Navigator.pushReplacement(
                                             context,
                                             MaterialPageRoute(
                                                 builder: (context) =>
-                                                    ViewAllDoctorsScreen(doctors: doctors,)
+                                                    Home()
                                                     ));
             },
             child: Text("OK"),

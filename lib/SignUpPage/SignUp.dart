@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:cataract_detector1/Home/Home.dart';
 import 'package:cataract_detector1/LoginPage/login.dart';
 import 'package:cataract_detector1/media_query.dart';
@@ -16,7 +14,18 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
-    Country selectedCountry = Country(phoneCode: "91", countryCode: "IN", e164Sc: 0, geographic: true, level: 1, name:"India", example: "India", displayName: "India", displayNameNoCountryCode: "IN", e164Key: "");
+  Country selectedCountry = Country(
+    phoneCode: "91",
+    countryCode: "IN",
+    e164Sc: 0,
+    geographic: true,
+    level: 1,
+    name: "India",
+    example: "India",
+    displayName: "India",
+    displayNameNoCountryCode: "IN",
+    e164Key: ""
+  );
 
   String email = "", password = "", name = "", phone = "", gender = "Male";
   int age = 0;
@@ -50,7 +59,7 @@ class _SignUpState extends State<SignUp> {
             .set({
           'name': name,
           'email': email,
-          'phone': phone,
+          'phone': "+${selectedCountry.phoneCode}$phone",
           'gender': gender,
           'age': age,
         });
@@ -58,7 +67,7 @@ class _SignUpState extends State<SignUp> {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text(
             "Registered Successfully",
-            style: TextStyle(fontSize: getScaledWidth(20, context),),
+            style: TextStyle(fontSize: getScaledWidth(20, context)),
           ),
         ));
 
@@ -104,14 +113,12 @@ class _SignUpState extends State<SignUp> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   CircularProgressIndicator(),
-                  SizedBox(height: getScaledHeight(20.0,context),),
+                  SizedBox(height: getScaledHeight(20.0, context)),
                   Text("Wait For Few Seconds"),
                 ],
               ),
             )
-          : 
-            // child: 
-            SingleChildScrollView(
+          : SingleChildScrollView(
               child: Column(
                 children: [
                   Container(
@@ -121,7 +128,7 @@ class _SignUpState extends State<SignUp> {
                       fit: BoxFit.cover,
                     ),
                   ),
-                  SizedBox(height: getScaledHeight(30.0,context),),
+                  SizedBox(height: getScaledHeight(30.0, context)),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20.0),
                     child: Form(
@@ -130,23 +137,23 @@ class _SignUpState extends State<SignUp> {
                         children: [
                           buildTextFormField(
                               nameController, "Name", "Please Enter Name"),
-                          SizedBox(height: getScaledHeight(10.0,context),),
+                          SizedBox(height: getScaledHeight(10.0, context)),
                           buildTextFormField(
                               mailController, "Email", "Please Enter Email"),
-                          SizedBox(height: getScaledHeight(10.0,context),),
+                          SizedBox(height: getScaledHeight(10.0, context)),
                           buildTextFormFieldPhone(phoneController,
                               "Phone Number", "Please Enter Phone Number"),
-                          SizedBox(height: getScaledHeight(10.0,context),),
+                          SizedBox(height: getScaledHeight(10.0, context)),
                           buildDropDownField(),
-                          SizedBox(height: getScaledHeight(10.0,context),),
+                          SizedBox(height: getScaledHeight(10.0, context)),
                           buildTextFormField(
                               ageController, "Age", "Please Enter Age",
                               isNumber: true),
-                          SizedBox(height: getScaledHeight(20.0,context),),
+                          SizedBox(height: getScaledHeight(20.0, context)),
                           buildTextFormField(passwordController, "Password",
                               "Please Enter Password",
                               obscureText: _obscureText, togglePassword: true),
-                          SizedBox(height: getScaledHeight(30.0,context),),
+                          SizedBox(height: getScaledHeight(30.0, context)),
                           GestureDetector(
                             onTap: () {
                               if (_formKey.currentState!.validate()) {
@@ -166,7 +173,7 @@ class _SignUpState extends State<SignUp> {
                       ),
                     ),
                   ),
-                  SizedBox(height: getScaledHeight(10.0,context),),
+                  SizedBox(height: getScaledHeight(10.0, context)),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -195,16 +202,14 @@ class _SignUpState extends State<SignUp> {
                       ),
                     ],
                   ),
-                  SizedBox(height: getScaledHeight(20.0,context),),
+                  SizedBox(height: getScaledHeight(20.0, context)),
                   Image.asset(
-                  'images/charak.png',
-                  height: getScaledHeight(50.0,context),
-                ),
-                                  // SizedBox(height: 10),
+                    'images/charak.png',
+                    height: getScaledHeight(50.0, context),
+                  ),
                 ],
               ),
             ),
-          // ),
     );
   }
 
@@ -230,7 +235,8 @@ class _SignUpState extends State<SignUp> {
         decoration: InputDecoration(
           border: InputBorder.none,
           hintText: hintText,
-          hintStyle: TextStyle(color: Color(0xFFb2b7bf), fontSize: getScaledWidth(18.0, context)),
+          hintStyle: TextStyle(
+              color: Color(0xFFb2b7bf), fontSize: getScaledWidth(18.0, context)),
           suffixIcon: togglePassword
               ? IconButton(
                   icon: Icon(
@@ -272,58 +278,69 @@ class _SignUpState extends State<SignUp> {
         decoration: InputDecoration(
           border: InputBorder.none,
           hintText: "MALE",
-          hintStyle: TextStyle(color: Color(0xFFb2b7bf), fontSize: getScaledWidth(18.0, context)),
+          hintStyle: TextStyle(
+              color: Color(0xFFb2b7bf), fontSize: getScaledWidth(18.0, context)),
         ),
       ),
     );
   }
-Widget buildTextFormFieldPhone(TextEditingController controller, String hintText,
-      String validationMessage,
-      {bool isNumber = false, bool obscureText = false, bool togglePassword = false}) {
+
+  Widget buildTextFormFieldPhone(
+      TextEditingController controller, String hintText, String validationMessage,
+      {bool isNumber = false, bool obscureText = false}) {
     return Container(
       padding: EdgeInsets.symmetric(vertical: 2.0, horizontal: 30.0),
       decoration: BoxDecoration(
-        color:  Color(0xFFedf0f8),
+        color: Color(0xFFedf0f8),
         borderRadius: BorderRadius.circular(30),
       ),
-      child: TextFormField(
-        validator: (value) {
-          if (value == null || value.isEmpty) {
-            return validationMessage;
-          }
-          return null;
-        },
-        controller: controller,
-        keyboardType: isNumber ? TextInputType.number : TextInputType.text,
-        obscureText: obscureText,
-        decoration: InputDecoration(
-          hintText: hintText,
-          hintStyle: TextStyle(fontWeight: FontWeight.w500, fontSize: getScaledWidth(15.0, context), color: Color(0xFFb2b7bf),),
-          enabledBorder: OutlineInputBorder (
-            borderRadius: BorderRadius.circular(10),
-            borderSide: const BorderSide(color:  Color(0xFFedf0f8)),
-          ),
-          focusedBorder: OutlineInputBorder (
-            borderRadius: BorderRadius.circular(10),
-            borderSide: const BorderSide(color:   Color(0xFFedf0f8)),
-          ),
-          prefixIcon: Container(
-            padding: const EdgeInsets.all(8.0),
-            child: InkWell(
-              onTap: (){
-                // Implement your Country Picker functionality here
-              },
-              child: Text("${selectedCountry.flagEmoji} + ${selectedCountry.phoneCode}", 
-              style:  TextStyle(
-                fontSize: getScaledWidth(18.0, context), 
-                color: Colors.black, fontWeight: FontWeight.bold,
-              ), // TextStyle
+      child: Row(
+        children: [
+          GestureDetector(
+            onTap: () {
+              showCountryPicker(
+                context: context,
+                showPhoneCode: true,
+                onSelect: (Country country) {
+                  setState(() {
+                    selectedCountry = country;
+                  });
+                },
+              );
+            },
+            child: Container(
+              padding: EdgeInsets.all(8.0),
+              child: Text(
+                "${selectedCountry.flagEmoji} +${selectedCountry.phoneCode}",
+                style: TextStyle(
+                    fontSize: getScaledWidth(18.0, context),
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold),
+              ),
             ),
           ),
-          
-        ),
+          Expanded(
+            child: TextFormField(
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return validationMessage;
+                }
+                return null;
+              },
+              controller: controller,
+              keyboardType: isNumber ? TextInputType.number : TextInputType.text,
+              obscureText: obscureText,
+              decoration: InputDecoration(
+                border: InputBorder.none,
+                hintText: hintText,
+                hintStyle: TextStyle(
+                    color: Color(0xFFb2b7bf),
+                    fontSize: getScaledWidth(18.0, context)),
+              ),
+            ),
+          ),
+        ],
       ),
-    ),
     );
   }
 
@@ -339,7 +356,9 @@ Widget buildTextFormFieldPhone(TextEditingController controller, String hintText
         child: Text(
           "Sign Up",
           style: TextStyle(
-              color: Colors.white, fontSize: getScaledWidth(22.0, context), fontWeight: FontWeight.w500),
+              color: Colors.white,
+              fontSize: getScaledWidth(22.0, context),
+              fontWeight: FontWeight.w500),
         ),
       ),
     );

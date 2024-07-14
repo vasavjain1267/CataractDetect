@@ -1,5 +1,8 @@
+import 'package:cataract_detector1/Home/Home.dart';
 import 'package:cataract_detector1/LoginPage/login.dart';
+import 'package:cataract_detector1/landing_page.dart';
 import 'package:cataract_detector1/splash_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
@@ -18,18 +21,18 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   // This widget is the root of your application.
-  // var auth = FirebaseAuth.instance;
-  // var isLogin = false;
+  var auth = FirebaseAuth.instance;
+  var isLogin = false;
 
-  // checkIfLogin() async{
-  //       auth.authStateChanges().listen((User? user){
-  //         if(user!= null && mounted){
-  //           setState((){
-  //             isLogin = true;
-  //           });
-  //         }
-  //       });
-  // }
+  checkIfLogin() async{
+        auth.authStateChanges().listen((User? user){
+          if(user!= null && mounted){
+            setState((){
+              isLogin = true;
+            });
+          }
+        });
+  }
 @override
   void initState() {
     // TODO: implement initState
@@ -46,8 +49,9 @@ class _MyAppState extends State<MyApp> {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
         useMaterial3: true,
       ),
+      home: LandingPage(),
       // home: isLogin ? Home() : const LandingPage(),
-      home:SplashScreen(),
+      // home:SplashScreen(),
       routes: {
         '/login': (context) => LogIn(),
       },

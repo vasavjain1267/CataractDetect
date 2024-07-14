@@ -24,7 +24,7 @@ class ScheduledAppointments extends StatelessWidget {
           Text(
             "Scheduled Appointments",
             style: TextStyle(
-              fontSize: 18,
+              fontSize: getScaledWidth(18, context),
               fontWeight: FontWeight.w500,
             ),
           ),

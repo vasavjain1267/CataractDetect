@@ -217,11 +217,11 @@ class _CameraScreenState extends State<CameraScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      // backgroundColor: Colors.white,
       appBar: AppBar(
         title: Text('Eye Scan', style: TextStyle(fontWeight: FontWeight.bold, height: 5, fontSize: getScaledWidth(25.0, context))
         ),
-        backgroundColor: Colors.white,
+        // backgroundColor: Colors.white,
       ),
       body: isLoading
           ? Center(
@@ -240,73 +240,93 @@ class _CameraScreenState extends State<CameraScreen> {
                 ],
               ),
             )
-          : Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      _buildCircularImage(_rightEyeImage),
-                      _buildCircularImage(_leftEyeImage),
-                    ],
-                  ),
-                  SizedBox(height: getScaledHeight(20.0, context)),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      ElevatedButton(
-                        onPressed: () {
-                          _showBottomSheet('right');
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.blue,
-                          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30),
-                          ),
-                        ),
-                        child: Text('SCAN RIGHT EYE'),
-                      ),
-                      ElevatedButton(
-                        onPressed: isRightEyeScanned
-                            ? () {
-                                _showBottomSheet('left');
-                              }
-                            : null,
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.blue,
-                          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30),
-                          ),
-                        ),
-                        child: Text('SCAN LEFT EYE'),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: getScaledHeight(90.0, context)),
-                  ElevatedButton(
-                    onPressed: isRightEyeScanned && isLeftEyeScanned
-                        ? () async {
-                            bool? confirmed = await _confirmImagesDialog();
-                            if (confirmed == true) {
-                              _navigateToResultPage();
-                            }
-                          }
-                        : null,
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.lightBlueAccent,
-                      padding: EdgeInsets.symmetric(horizontal: 100, vertical: 15),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30),
-                      ),
+          : SingleChildScrollView(
+            child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        _buildCircularImage(_rightEyeImage),
+                        _buildCircularImage(_leftEyeImage),
+                      ],
                     ),
-                    child: Text('NEXT'),
-                  ),
-                ],
+                    SizedBox(height: getScaledHeight(20.0, context)),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        ElevatedButton(
+                          onPressed: () {
+                            _showBottomSheet('right');
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.blue,
+                            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30),
+                            ),
+                          ),
+                          child: Text('SCAN RIGHT EYE'),
+                        ),
+                        ElevatedButton(
+                          onPressed: isRightEyeScanned
+                              ? () {
+                                  _showBottomSheet('left');
+                                }
+                              : null,
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.blue,
+                            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30),
+                            ),
+                          ),
+                          child: Text('SCAN LEFT EYE'),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: getScaledHeight(20.0, context)),
+                    Text(
+                      'Instructions:',
+                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    ),
+                    SizedBox(height: 10),
+                    Text(
+                      '1. Keep your face in front of the camera.\n'
+                      '2. Make sure your entire eye is visible in the grid,\n also the flash light  must be on but the reflection must not fall on eye lens\n'
+                      '3. Crop the image so that your whole eye is within the grid.',
+                      style: TextStyle(fontSize: 16),
+                    ),
+                    SizedBox(height: 20),
+                    Image.asset(
+                      'images/dummy.jpeg',
+                      width: getScaledWidth(150, context),
+                      height: getScaledHeight(150.0, context),
+                    ),
+                    SizedBox(height: getScaledHeight(90.0, context)),
+                    ElevatedButton(
+                      onPressed: isRightEyeScanned && isLeftEyeScanned
+                          ? () async {
+                              bool? confirmed = await _confirmImagesDialog();
+                              if (confirmed == true) {
+                                _navigateToResultPage();
+                              }
+                            }
+                          : null,
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.lightBlueAccent,
+                        padding: EdgeInsets.symmetric(horizontal: 100, vertical: 15),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                      ),
+                      child: Text('NEXT'),
+                    ),
+                  ],
+                ),
               ),
-            ),
+          ),
     );
   }
 
